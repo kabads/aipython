@@ -115,11 +115,11 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     num_explored = 0
-    source_dict = get_person_details(source)
-    target_dict = get_person_details(target)
-
+    source_dict = person_id_for_name(source)
+    target_dict = person_id_for_name(target)
+    print(source_dict, target_dict)
     # Create a node from where we are (the source_list[0] id)
-    start = Node(state=source_dict[0], parent=None, action=None)
+    start = Node(state=source_dict, parent=None, action=None)
     # Start with a frontier that contains the initial state:
     frontier = StackFrontier()
     frontier.add(start)
@@ -155,26 +155,32 @@ def shortest_path(source, target):
             return
 
         # Mark node as explored
-        self.explored.add(node.state)
+        explored.add(node.state)
 
         # TODO expand the node
         # Expand node, add resulting nodes to the frontier.
         # This means looking at all the neighbours of the node.
 
-        for action, state in neighbors(node.state):
-            if not frontier.contains_state(state) and state not in self.explored:
+        for action, state in neighbors_for_person(node.state):
+            if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
                 frontier.add(child)
 
     # TODO
     # raise NotImplementedError
 
-def neighbors(source):
-    """
-    This will return actors who have been in the same films as source.
 
-    Returns neighbour as actor.
-    """
+# def neighbors(state):
+#     """
+#     Accepts a node state as an argument. The node state refers to the
+#     actor that we are at for that node.
+#     This will return actors who have been in the same films as source.
+#     Returns neighbour as actor id.
+#     """
+#     neighbours = []
+#
+#     return neighbours
+
 
 def person_id_for_name(name):
     """
