@@ -90,6 +90,7 @@ def main():
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
+
 def get_person_details(person):
     """
     Does a  look up for the people maps and returns a person id
@@ -105,6 +106,7 @@ def get_person_details(person):
     print(person_dict)
     return person_dict
 
+
 def shortest_path(source, target):
     """
     Returns the shortest list of (movie_id, person_id) pairs
@@ -112,13 +114,67 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-
+    num_explored = 0
     source_dict = get_person_details(source)
     target_dict = get_person_details(target)
+
+    # Create a node from where we are (the source_list[0] id)
+    start = Node(state=source_dict[0], parent=None, action=None)
+    # Start with a frontier that contains the initial state:
+    frontier = StackFrontier()
+    frontier.add(start)
+
+    # Initialize an empty explored set
+    explored = set()
+
+    # Set the goal as the target's id
+    goal = target_dict[0]
+    # Now for the search loop
+
+    while True:
+        # If frontier is empty, then no solution:
+        if frontier.empty():
+            raise Exception("no solution")
+
+        # Remove a node from the frontier.
+        node = frontier.remove()
+
+        num_explored += 1
+
+        # If node contains goal state, return the solution:
+        if node.state == goal:
+            actions = []
+            movies = []
+            while node.parent is not None:
+                actions.append(node.action)
+                movies.append(node.state)
+                node = node.parent
+            actions.reverse()
+            movies.reverse()
+            solution = (actions, movies)
+            return
+
+        # Mark node as explored
+        self.explored.add(node.state)
+
+        # TODO expand the node
+        # Expand node, add resulting nodes to the frontier.
+        # This means looking at all the neighbours of the node.
+
+        for action, state in neighbors(node.state):
+            if not frontier.contains_state(state) and state not in self.explored:
+                child = Node(state=state, parent=node, action=action)
+                frontier.add(child)
 
     # TODO
     # raise NotImplementedError
 
+def neighbors(source):
+    """
+    This will return actors who have been in the same films as source.
+
+    Returns neighbour as actor.
+    """
 
 def person_id_for_name(name):
     """
