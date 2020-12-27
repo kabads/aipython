@@ -61,13 +61,17 @@ def main():
     print("Loading data...")
     load_data(directory)
     print("Data loaded.")
-
-    source = person_id_for_name(input("Name: "))
+    # TODO Delete the plain source and target hard codings
+    source = None
+    target = None
+    # TODO Uncomment this input
+    # source = person_id_for_name(input("Name: "))
     if source is None:
         # TODO Uncomment this hard coding and put back sysexit
         source = "Kevin Bacon"
         # sys.exit("Person not found.")
-    target = person_id_for_name(input("Name: "))
+    # TODO Uncomment this input
+    # target = person_id_for_name(input("Name: "))
     if target is None:
         # TODO Uncomment this hard coding and put back sysexit
         target = "Demi Moore"
@@ -97,11 +101,14 @@ def shortest_path(source, target):
 
     # print(people["name" source])
     # print(people["name" == target])
-    all_keys = []
+    source_dict = []
+    print(source)
     for key, value in people.items():
         if (value['name'] == source):
-            all_keys.append(value)
-    print(all_keys)
+            source_dict.append(value)
+    print(source_dict['name'])
+
+
     # TODO
     raise NotImplementedError
 
