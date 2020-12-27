@@ -91,21 +91,6 @@ def main():
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 
-def get_person_details(person):
-    """
-    Does a  look up for the people maps and returns a person id
-    based on the name passed.
-    Returns a list that holds the id of the person and then
-    other details about the person (in a dict).
-    """
-    person_dict = []
-    for key, value in people.items():
-        if value['name'] == person:
-            person_dict.append(key)
-            person_dict.append(value)
-    print(person_dict)
-    return person_dict
-
 
 def shortest_path(source, target):
     """
@@ -160,6 +145,7 @@ def shortest_path(source, target):
         # TODO expand the node
         # Expand node, add resulting nodes to the frontier.
         # This means looking at all the neighbours of the node.
+        print(neighbors_for_person(node.state))
 
         for action, state in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
@@ -169,6 +155,8 @@ def shortest_path(source, target):
     # TODO
     # raise NotImplementedError
 
+    # TODO Just return the path between stars
+    return path
 
 # def neighbors(state):
 #     """
