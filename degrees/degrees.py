@@ -102,15 +102,13 @@ def shortest_path(source, target):
     # print(people["name" source])
     # print(people["name" == target])
     source_dict = []
-    print(source)
     for key, value in people.items():
         if (value['name'] == source):
             source_dict.append(value)
-    print(source_dict['name'])
-
-
+            source_dict.append(key)
+    print(source_dict)
     # TODO
-    raise NotImplementedError
+    # raise NotImplementedError
 
 
 def person_id_for_name(name):
