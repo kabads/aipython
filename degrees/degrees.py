@@ -90,6 +90,20 @@ def main():
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
+def get_person_details(person):
+    """
+    Does a  look up for the people maps and returns a person id
+    based on the name passed.
+    Returns a list that holds the id of the person and then
+    other details about the person (in a dict).
+    """
+    person_dict = []
+    for key, value in people.items():
+        if value['name'] == person:
+            person_dict.append(key)
+            person_dict.append(value)
+    print(person_dict)
+    return person_dict
 
 def shortest_path(source, target):
     """
@@ -99,14 +113,9 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    # print(people["name" source])
-    # print(people["name" == target])
-    source_dict = []
-    for key, value in people.items():
-        if (value['name'] == source):
-            source_dict.append(value)
-            source_dict.append(key)
-    print(source_dict)
+    source_dict = get_person_details(source)
+    target_dict = get_person_details(target)
+
     # TODO
     # raise NotImplementedError
 
