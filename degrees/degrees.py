@@ -118,6 +118,7 @@ def shortest_path(source, target):
     # Now for the search loop
 
     while True:
+        print("shortest_path loop called.")
         # If frontier is empty, then no solution:
         if frontier.empty():
             raise Exception("no solution")
@@ -138,7 +139,7 @@ def shortest_path(source, target):
             actions.reverse()
             movies.reverse()
             solution = (actions, movies)
-            return
+            return node.state
 
         # Mark node as explored
         print("Node added to explored: " + node.state)
@@ -153,11 +154,12 @@ def shortest_path(source, target):
         # print(neighbors_for_person(node.state))
         # print("Explored: "+ str(explored))
         for costar_movie, state, in neighbors_for_person(node.state):
+            print("Expanding node loop called. ")
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=costar_movie)
                 # print("Child created.")
                 frontier.add(child)
-                print("Node: " + node.state + " added to frontier.")
+                # print("Node: " + node.state + " added to frontier.")
 
     # TODO
     # raise NotImplementedError
