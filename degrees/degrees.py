@@ -141,6 +141,7 @@ def shortest_path(source, target):
             return
 
         # Mark node as explored
+        print("Node added to explored: " + node.state)
         explored.add(node.state)
 
         # TODO expand the node
@@ -196,16 +197,17 @@ def neighbors_for_person(person_id):
     Returns (movie_id, person_id) pairs for people
     who starred with a given person.
     """
+    initial_actor = person_id
     movie_ids = people[person_id]["movies"]
     print("movie_ids: "+ str(movie_ids))
     neighbors = set()
     for movie_id in movie_ids:
         for person_id in movies[movie_id]["stars"]:
-            # TODO I'm changing the returns on this function
-            # I'm not sure why we add movie_id
-            neighbors.add((movie_id, person_id))
-            # neighbors.add(person_id)
+            # TODO I need to omit the person who started this function
+            if person_id != initial_actor:
+                neighbors.add((movie_id, person_id))
     print("Neighbors: " + str(neighbors))
+
     return neighbors
 
 
