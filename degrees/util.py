@@ -27,6 +27,9 @@ class StackFrontier():
             self.frontier = self.frontier[:-1]
             return node
 
+    def __len__(self):
+        return len(self.frontier)
+
 
 class QueueFrontier(StackFrontier):
 

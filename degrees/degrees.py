@@ -100,11 +100,11 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     num_explored = 0
-    source_dict = person_id_for_name(source)
-    target_dict = person_id_for_name(target)
+    source_id = person_id_for_name(source)
+    target_id = person_id_for_name(target)
 
     # Create a node from where we are (the source_list[0] id)
-    start = Node(state=source_dict, parent=None, action=None)
+    start = Node(state=source_id, parent=None, action=None)
     # Start with a frontier that contains the initial state:
     frontier = StackFrontier()
     frontier.add(start)
@@ -113,19 +113,20 @@ def shortest_path(source, target):
     explored = set()
 
     # Set the goal as the target's id
-    goal = target_dict
+    goal = target_id
     print("Goal is: " + goal)
     # Now for the search loop
 
     while True:
         print("shortest_path loop called.")
+        print("Start Frontier length: " + str((len(frontier))))
         # If frontier is empty, then no solution:
         if frontier.empty():
             raise Exception("no solution")
 
         # Remove a node from the frontier.
         node = frontier.remove()
-
+        print("End Frontier length: " + str((len(frontier))))
         num_explored += 1
 
         # If node contains goal state, return the solution:
