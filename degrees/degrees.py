@@ -102,7 +102,7 @@ def shortest_path(source, target):
     num_explored = 0
     source_dict = person_id_for_name(source)
     target_dict = person_id_for_name(target)
-    print(source_dict, target_dict)
+
     # Create a node from where we are (the source_list[0] id)
     start = Node(state=source_dict, parent=None, action=None)
     # Start with a frontier that contains the initial state:
@@ -113,7 +113,8 @@ def shortest_path(source, target):
     explored = set()
 
     # Set the goal as the target's id
-    goal = target_dict[0]
+    goal = target_dict
+    print("Goal is: " + goal)
     # Now for the search loop
 
     while True:
@@ -145,29 +146,23 @@ def shortest_path(source, target):
         # TODO expand the node
         # Expand node, add resulting nodes to the frontier.
         # This means looking at all the neighbours of the node.
-        print(neighbors_for_person(node.state))
-
-        for action, state in neighbors_for_person(node.state):
+        # print("Num Exp: " + str(num_explored))
+        # print(neighbors_for_person(node.state))
+        # print(" Node ID: " + str(node.state))
+        # print(neighbors_for_person(node.state))
+        # print("Explored: "+ str(explored))
+        for costar_movie, state, in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
-                child = Node(state=state, parent=node, action=action)
+                child = Node(state=state, parent=node, action=costar_movie)
+                # print("Child created.")
                 frontier.add(child)
+                print("Node: " + node.state + " added to frontier.")
 
     # TODO
     # raise NotImplementedError
 
     # TODO Just return the path between stars
     return path
-
-# def neighbors(state):
-#     """
-#     Accepts a node state as an argument. The node state refers to the
-#     actor that we are at for that node.
-#     This will return actors who have been in the same films as source.
-#     Returns neighbour as actor id.
-#     """
-#     neighbours = []
-#
-#     return neighbours
 
 
 def person_id_for_name(name):
@@ -202,10 +197,15 @@ def neighbors_for_person(person_id):
     who starred with a given person.
     """
     movie_ids = people[person_id]["movies"]
+    print("movie_ids: "+ str(movie_ids))
     neighbors = set()
     for movie_id in movie_ids:
         for person_id in movies[movie_id]["stars"]:
+            # TODO I'm changing the returns on this function
+            # I'm not sure why we add movie_id
             neighbors.add((movie_id, person_id))
+            # neighbors.add(person_id)
+    print("Neighbors: " + str(neighbors))
     return neighbors
 
 
