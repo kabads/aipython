@@ -74,10 +74,11 @@ def main():
     # target = person_id_for_name(input("Name: "))
     if target is None:
         # TODO Uncomment this hard coding and put back sysexit
-        target = "Demi Moore"
+        # target = "Demi Moore"
         # target = "Bill Paxton"
         # target = "Sally Field"
         # target = "Will DaRosa"
+        target = "Cary Elwes"
         # sys.exit("Person not found.")
     path = shortest_path(source, target)
     # print("And finally, path is: " + path)
@@ -86,7 +87,9 @@ def main():
     else:
         degrees = len(path)
         print(f"{degrees} degrees of separation.")
+        # This statement sets up the path, with no movie, but the orig actor.
         path = [(None, source)] + path
+        print(path)
         for i in range(degrees):
             person1 = people[path[i][1]]["name"]
             person2 = people[path[i + 1][1]]["name"]
@@ -133,6 +136,8 @@ def shortest_path(source, target):
 
         # If node contains goal state, return the solution:
         if node.state == goal:
+            # TODO This needs to be changed to put the movie and the
+            # actor together.
             actions = []
             movies_tog = []
             while node.parent is not None:
@@ -141,9 +146,7 @@ def shortest_path(source, target):
                 node = node.parent
             actions.reverse()
             movies_tog.reverse()
-            print(str(type(solution)))
             solution_details = (actions, movies_tog)
-            print(str(type(solution_details)))
             solution.append(solution_details)
             print("We're returning the solution: " + str(solution))
             return solution
