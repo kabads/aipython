@@ -75,12 +75,7 @@ def main():
     target = person_id_for_name("Demi Moore")
     print(target)
     if target is None:
-        # TODO Uncomment this hard coding and put back sysexit
-        # target = "Demi Moore"
-        # target = "Bill Paxton"
-        # target = "Sally Field"
-        # target = "Will DaRosa"
-        # target = "Cary Elwes"
+
         sys.exit("Person not found.")
     path = shortest_path(source, target)
     # print("And finally, path is: " + path)
@@ -113,7 +108,7 @@ def shortest_path(source, target):
     # Create a node from where we are (the source_list[0] id)
     start = Node(state=source_id, parent=None, action=None)
     # Start with a frontier that contains the initial state:
-    frontier = StackFrontier()
+    frontier = QueueFrontier()
     frontier.add(start)
 
     # Initialize an empty explored set
