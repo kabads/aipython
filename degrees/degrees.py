@@ -77,7 +77,7 @@ def main():
         target = "Demi Moore"
         # sys.exit("Person not found.")
     path = shortest_path(source, target)
-
+    print("And finally, path is: " + path)
     if path is None:
         print("Not connected.")
     else:
@@ -132,15 +132,16 @@ def shortest_path(source, target):
         # If node contains goal state, return the solution:
         if node.state == goal:
             actions = []
-            movies = []
+            movies_tog = []
             while node.parent is not None:
                 actions.append(node.action)
-                movies.append(node.state)
+                movies_tog.append(node.state)
                 node = node.parent
             actions.reverse()
-            movies.reverse()
-            solution = (actions, movies)
-            return node.state
+            movies_tog.reverse()
+            solution = (actions, movies_tog)
+            print("We're returning the solution: " + str(solution))
+            return solution
 
         # Mark node as explored
         print("Node added to explored: " + node.state)
@@ -165,8 +166,6 @@ def shortest_path(source, target):
     # TODO
     # raise NotImplementedError
 
-    # TODO Just return the path between stars
-    return path
 
 
 def person_id_for_name(name):
