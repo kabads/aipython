@@ -61,25 +61,27 @@ def main():
     print("Loading data...")
     load_data(directory)
     print("Data loaded.")
-    # TODO Delete the plain source and target hard codings
-    source = None
-    target = None
     # TODO Uncomment this input
-    # source = person_id_for_name(input("Name: "))
+    #source = person_id_for_name(input("Name: "))
+    source = person_id_for_name("Kevin Bacon")
+    print(source)
+    # source = person_id_for_name("source_")
     if source is None:
         # TODO Uncomment this hard coding and put back sysexit
-        source = "Kevin Bacon"
-        # sys.exit("Person not found.")
+        # source = "Kevin Bacon"
+        sys.exit("Person not found.")
     # TODO Uncomment this input
     # target = person_id_for_name(input("Name: "))
+    target = person_id_for_name("Demi Moore")
+    print(target)
     if target is None:
         # TODO Uncomment this hard coding and put back sysexit
         # target = "Demi Moore"
         # target = "Bill Paxton"
         # target = "Sally Field"
         # target = "Will DaRosa"
-        target = "Cary Elwes"
-        # sys.exit("Person not found.")
+        # target = "Cary Elwes"
+        sys.exit("Person not found.")
     path = shortest_path(source, target)
     # print("And finally, path is: " + path)
     if path is None:
@@ -105,8 +107,8 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     num_explored = 0
-    source_id = person_id_for_name(source)
-    target_id = person_id_for_name(target)
+    source_id = source
+    target_id = target
     solution = []
     # Create a node from where we are (the source_list[0] id)
     start = Node(state=source_id, parent=None, action=None)
@@ -119,7 +121,7 @@ def shortest_path(source, target):
 
     # Set the goal as the target's id
     goal = target_id
-    # print("Goal is: " + goal)
+    print("Goal is: " + goal)
     # Now for the search loop
 
     while True:
