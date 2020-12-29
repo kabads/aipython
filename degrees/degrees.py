@@ -75,9 +75,12 @@ def main():
     if target is None:
         # TODO Uncomment this hard coding and put back sysexit
         target = "Demi Moore"
+        # target = "Bill Paxton"
+        # target = "Sally Field"
+        # target = "Will DaRosa"
         # sys.exit("Person not found.")
     path = shortest_path(source, target)
-    print("And finally, path is: " + path)
+    # print("And finally, path is: " + path)
     if path is None:
         print("Not connected.")
     else:
@@ -91,7 +94,6 @@ def main():
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 
-
 def shortest_path(source, target):
     """
     Returns the shortest list of (movie_id, person_id) pairs
@@ -102,7 +104,7 @@ def shortest_path(source, target):
     num_explored = 0
     source_id = person_id_for_name(source)
     target_id = person_id_for_name(target)
-
+    solution = []
     # Create a node from where we are (the source_list[0] id)
     start = Node(state=source_id, parent=None, action=None)
     # Start with a frontier that contains the initial state:
@@ -114,19 +116,19 @@ def shortest_path(source, target):
 
     # Set the goal as the target's id
     goal = target_id
-    print("Goal is: " + goal)
+    # print("Goal is: " + goal)
     # Now for the search loop
 
     while True:
-        print("shortest_path loop called.")
-        print("Start Frontier length: " + str((len(frontier))))
+        # print("shortest_path loop called.")
+        # print("Start Frontier length: " + str((len(frontier))))
         # If frontier is empty, then no solution:
         if frontier.empty():
             raise Exception("no solution")
 
         # Remove a node from the frontier.
         node = frontier.remove()
-        print("End Frontier length: " + str((len(frontier))))
+        # print("End Frontier length: " + str((len(frontier))))
         num_explored += 1
 
         # If node contains goal state, return the solution:
@@ -139,12 +141,15 @@ def shortest_path(source, target):
                 node = node.parent
             actions.reverse()
             movies_tog.reverse()
-            solution = (actions, movies_tog)
+            print(str(type(solution)))
+            solution_details = (actions, movies_tog)
+            print(str(type(solution_details)))
+            solution.append(solution_details)
             print("We're returning the solution: " + str(solution))
             return solution
 
         # Mark node as explored
-        print("Node added to explored: " + node.state)
+        # print("Node added to explored: " + node.state)
         explored.add(node.state)
 
         # TODO expand the node
@@ -156,7 +161,7 @@ def shortest_path(source, target):
         # print(neighbors_for_person(node.state))
         # print("Explored: "+ str(explored))
         for costar_movie, state, in neighbors_for_person(node.state):
-            print("Expanding node loop called. ")
+            # print("Expanding node loop called. ")
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=costar_movie)
                 # print("Child created.")
@@ -165,7 +170,6 @@ def shortest_path(source, target):
 
     # TODO
     # raise NotImplementedError
-
 
 
 def person_id_for_name(name):
@@ -201,14 +205,14 @@ def neighbors_for_person(person_id):
     """
     initial_actor = person_id
     movie_ids = people[person_id]["movies"]
-    print("movie_ids: "+ str(movie_ids))
+    # print("movie_ids: "+ str(movie_ids))
     neighbors = set()
     for movie_id in movie_ids:
         for person_id in movies[movie_id]["stars"]:
             # TODO I need to omit the person who started this function
             if person_id != initial_actor:
                 neighbors.add((movie_id, person_id))
-    print("Neighbors: " + str(neighbors))
+    # print("Neighbors: " + str(neighbors))
 
     return neighbors
 
