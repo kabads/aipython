@@ -138,18 +138,23 @@ def shortest_path(source, target):
         if node.state == goal:
             # TODO This needs to be changed to put the movie and the
             # actor together.
-            actions = []
-            movies_tog = []
+            # Old versions:
+            # actions = []
+            # movies_tog = []
+            actor = []
             while node.parent is not None:
-                actions.append(node.action)
-                movies_tog.append(node.state)
+                # actions.append(node.action)
+                # movies_tog.append(node.state)
+                solution = (node.action, node.state)
+                actor.append(solution)
                 node = node.parent
-            actions.reverse()
-            movies_tog.reverse()
-            solution_details = (actions, movies_tog)
-            solution.append(solution_details)
+            # actions.reverse()
+            # movies_tog.reverse()
+
+            # solution_details = (actions, movies_tog)
+            # solution.append(solution_details)
             print("We're returning the solution: " + str(solution))
-            return solution
+            return actor
 
         # Mark node as explored
         # print("Node added to explored: " + node.state)
