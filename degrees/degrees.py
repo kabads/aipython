@@ -62,8 +62,8 @@ def main():
     load_data(directory)
     print("Data loaded.")
     # TODO Uncomment this input
-    #source = person_id_for_name(input("Name: "))
-    source = person_id_for_name("Kevin Bacon")
+    source = person_id_for_name(input("Name: "))
+    # source = person_id_for_name("Kevin Bacon")
     # print(source)
     # source = person_id_for_name("source_")
     if source is None:
@@ -71,8 +71,8 @@ def main():
         # source = "Kevin Bacon"
         sys.exit("Person not found.")
     # TODO Uncomment this input
-    # target = person_id_for_name(input("Name: "))
-    target = person_id_for_name("Sally Field")
+    target = person_id_for_name(input("Name: "))
+    # target = person_id_for_name("Sally Field")
     # print(target)
     if target is None:
 
@@ -144,6 +144,7 @@ def shortest_path(source, target):
                 node = node.parent
             actor.reverse()
             print("We're returning the solution: " + str(solution))
+            print(num_explored)
             return actor
 
         # TODO expand the node

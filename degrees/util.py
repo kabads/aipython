@@ -10,7 +10,6 @@ class StackFrontier():
         self.frontier = []
 
     def add(self, node):
-        # print("Added Node to Frontier: " + str(node))
         self.frontier.append(node)
 
     def contains_state(self, state):
