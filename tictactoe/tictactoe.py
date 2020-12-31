@@ -22,18 +22,18 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    XCOUNT = 0
-    OCOUNT = 0
+    xcount = 0
+    ocount = 0
     # TODO Loop through the board and count instances of player's turn
     for row in board:
         for column in row:
             if column == "X":
-                XCOUNT += 1
+                xcount += 1
             if column == "O":
-                OCOUNT += 1
-    if XCOUNT < OCOUNT:
+                ocount += 1
+    if xcount < ocount:
         return "X"
-    elif OCOUNT < XCOUNT:
+    elif ocount < xcount:
         return "O"
     else:
         return "NONE"
