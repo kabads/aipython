@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 
 import math
+import numpy
 
 X = "X"
 O = "O"
@@ -71,6 +72,10 @@ def winner(board):
             pass
         elif row[0] == row[1] and row[1] == row[2]:
             return row[0]
+
+    # Check columns
+    for column in array.board:
+        print(column[0], column[1], column[2])
 
     raise NotImplementedError
 
