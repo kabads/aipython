@@ -1,3 +1,6 @@
 venv/* 
 venv
 *.zip
+tictactoetest.py
+tictactoe/solved
+tictactoe/solved/*

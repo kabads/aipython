@@ -31,15 +31,10 @@ def player(board):
                 xcount += 1
             if column == "O":
                 ocount += 1
-    if xcount < ocount:
-        return "X"
-    elif ocount < xcount:
+    if ocount < xcount:
         return "O"
     else:
-        return "NONE"
-
-    # TODO If board is empty, then it's X's go. 
-    # TODO Return the player with the least turns
+        return "X"
     raise NotImplementedError
 
 
@@ -69,6 +64,14 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
+    # Check rows
+    for row in board:
+        print(row[0])
+        if row[0] == EMPTY or row[1] == EMPTY or row[2] == EMPTY:
+            pass
+        elif row[0] == row[1] and row[1] == row[2]:
+            return row[0]
+
     raise NotImplementedError
 
 
