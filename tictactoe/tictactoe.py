@@ -164,3 +164,17 @@ def minimax(board):
     # From utility, we can work out our best action.
 
     raise NotImplementedError
+
+# TODO:
+# - actions
+# - result
+# - utility
+# - minvalue
+# - maxvalue
+# - minimax
+
+# Done:
+# - initial_state
+# - player
+# - terminal
+# - winner
