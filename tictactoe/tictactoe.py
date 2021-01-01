@@ -94,7 +94,20 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    # TODO check if state s is terminal 
+    # Check if state s is terminal
+    # Check if we have a winner
+    if winner(board) == "X" or winner(board) == "O":
+        return True
+    # No winner - so are there spaces on the board?
+    else:
+        for row in board:
+            for column in row:
+                if EMPTY in column:
+                    return False
+
+    # No space left on the board and no winner - so game is terminal
+    return True
+
     raise NotImplementedError
 
 
@@ -108,7 +121,10 @@ def utility(board):
     # TODO If O will win, then value of that state is -1
     # TODO If draw, then value of that state is 0
 
+
 # MAX-VALUE function
+def maxvalue():
+    pass
 # TODO CHECK if terminal:
     # return utility state
 # TODO create a variable called V to track the value of the state.
@@ -116,6 +132,9 @@ def utility(board):
 # For every action in actions(state):
     # v = MAX(v, MIN-VALUE(Result(state, action)))
 
+
+def minvalue():
+    pass
 # MIN-VALUE function
 # TODO CHECK if terminal:
     # return utility state
