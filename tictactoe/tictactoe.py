@@ -3,7 +3,6 @@ Tic Tac Toe Player
 """
 
 import math
-import numpy
 
 X = "X"
 O = "O"
@@ -74,8 +73,12 @@ def winner(board):
             return row[0]
 
     # Check columns
-    for column in array.board:
-        print(column[0], column[1], column[2])
+    transposed_board = [*zip(*board)]
+    for column in transposed_board:
+        if column[0] == EMPTY or column[1] == EMPTY or column[2] == EMPTY:
+            pass
+        elif column[0] == column[1] and column[1] == column[2]:
+            return column[0]
 
     raise NotImplementedError
 
