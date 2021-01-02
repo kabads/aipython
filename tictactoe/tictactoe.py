@@ -66,7 +66,8 @@ def result(board, action):
     # TODO This is the transitional model. We take a state and an action,
     # TODO when we apply the action and the state, we return the board
     # TODO that is now in place. 
-    raise NotImplementedError
+    board[action[0]][action[1]] = player(board)
+    return board
 
 
 def winner(board):
@@ -175,7 +176,7 @@ def minimax(board):
     raise NotImplementedError
 
 # TODO:
-# - result
+
 # - utility
 # - minvalue
 # - maxvalue
@@ -187,3 +188,4 @@ def minimax(board):
 # - terminal
 # - winner
 # - actions
+# - result
