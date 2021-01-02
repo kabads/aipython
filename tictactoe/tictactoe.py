@@ -111,9 +111,8 @@ def terminal(board):
     # No winner - so are there spaces on the board?
     else:
         for row in board:
-            for column in row:
-                if EMPTY in column:
-                    return False
+            if EMPTY in row:
+                return False
 
     # No space left on the board and no winner - so game is terminal
     return True
@@ -137,55 +136,84 @@ def utility(board):
     else:
         return 0
 
-# MAX-VALUE function
-def maxvalue():
-    pass
-# TODO CHECK if terminal:
-    # return utility state
-# TODO create a variable called V to track the value of the state.
-# TODO initially, we set it to as low as possible (negative infinity).
-# For every action in actions(state):
-    # v = MAX(v, MIN-VALUE(Result(state, action)))
+# # MAX-VALUE function
+# def maxvalue():
+#     pass
+# # TODO CHECK if terminal:
+#     # return utility state
+# # TODO create a variable called V to track the value of the state.
+# # TODO initially, we set it to as low as possible (negative infinity).
+# # For every action in actions(state):
+#     # v = MAX(v, MIN-VALUE(Result(state, action)))
+#
+#
+# def minvalue():
+#     pass
+# # MIN-VALUE function
+# # TODO CHECK if terminal:
+#     # return utility state
+# # TODO create a variable called V to track the value of the state.
+# # TODO initially, we set it to as low as possible (positive infinity).
+# # For every action in actions(state):
+# # v = MIN(v, MAX-VALUE(Result(state, action)))
+#
+#     raise NotImplementedError
+#
+#
+# def minimax(board):
+#     """
+#     Returns the optimal action for the current player on the board.
+#     """
+#     # TODO Recursive algorithm
+#     # Repeat the process, but from opponent's viewpoint.
+#     # if max's turn:
+#         # pick action a that produces highest value of:
+#         # action = highest value of min-value(result(state, action))
+#     # if min's turn:
+#         # pick action a that produces lowest value of
+#         # action = lowest value of max-value(result(state, action))
+#     # Actions is a function that takes a state and returns all the possible
+#     # actions that can be taken by that player.
+#     # TODO loop round all the possible actions and send them to utility.
+#     # From utility, we can work out our best action.
 
 
-def minvalue():
-    pass
-# MIN-VALUE function
-# TODO CHECK if terminal:
-    # return utility state
-# TODO create a variable called V to track the value of the state.
-# TODO initially, we set it to as low as possible (positive infinity).
-# For every action in actions(state):
-# v = MIN(v, MAX-VALUE(Result(state, action)))
+def max_value(board):
+    if terminal(board):
+        return utility(board)
+    else:
+        v = float('-inf')
+        for action in actions(board):
+            v = max(v, min_value(result(board, action)))
+        return v
 
-    raise NotImplementedError
+
+def min_value(board):
+    if terminal(board):
+        return utility(board)
+    else:
+        v = float('inf')
+        for action in actions(board):
+            v = min(v, max_value(result(board, action)))
+        return v
 
 
 def minimax(board):
-    """
-    Returns the optimal action for the current player on the board.
-    """
-    # TODO Recursive algorithm
-    # Repeat the process, but from opponent's viewpoint. 
-    # if max's turn: 
-        # pick action a that produces highest value of:
-        # action = highest value of min-value(result(state, action))
-    # if min's turn:
-        # pick action a that produces lowest value of
-        # action = lowest value of max-value(result(state, action))
-    # Actions is a function that takes a state and returns all the possible
-    # actions that can be taken by that player.
-    # TODO loop round all the possible actions and send them to utility.
-    # From utility, we can work out our best action.
+    if player(board) == "O":
+        value, move = max_value(board)
+        return move
 
-    raise NotImplementedError
+    if player(board) == "X":
+        value, move = min_value(board)
+        return move
+
+
+EMPTY = None
 
 # TODO:
 
 
-# - minvalue
-# - maxvalue
-# - minimax
+
 
 # Done:
 # - initial_state
@@ -195,3 +223,6 @@ def minimax(board):
 # - actions
 # - result
 # - utility
+# - minvalue
+# - maxvalue
+# - minimax
