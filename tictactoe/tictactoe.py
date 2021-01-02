@@ -46,6 +46,15 @@ def actions(board):
     # TODO return all legal moves for this board.
     # TODO Gives us all the possible actions (much like classical search)
     # TODO return all the actions for this board.
+    possible_actions = set()
+    for row in range(0, len(board)):
+        print("Row:" + str(row))
+        for column in range(0, len(board[0])):
+            print("Column:" + str(column))
+            if board[row][column] == "EMPTY":
+                possible_actions.add((row, column))
+    return possible_actions
+
     raise NotImplementedError
 
 
