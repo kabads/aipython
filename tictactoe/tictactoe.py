@@ -35,7 +35,6 @@ def player(board):
         return "O"
     else:
         return "X"
-    raise NotImplementedError
 
 
 def actions(board):
@@ -48,14 +47,10 @@ def actions(board):
     # TODO return all the actions for this board.
     possible_actions = set()
     for row in range(0, len(board)):
-        print("Row:" + str(row))
         for column in range(0, len(board[0])):
-            print("Column:" + str(column))
-            if board[row][column] == "EMPTY":
+            if board[row][column] == EMPTY:
                 possible_actions.add((row, column))
     return possible_actions
-
-    raise NotImplementedError
 
 
 def result(board, action):
@@ -76,12 +71,10 @@ def winner(board):
     """
     # Check rows
     for row in board:
-        print(row[0])
         if row[0] == EMPTY or row[1] == EMPTY or row[2] == EMPTY:
             pass
         elif row[0] == row[1] and row[1] == row[2]:
             return row[0]
-
     # Check columns
     transposed_board = [*zip(*board)]
     for column in transposed_board:
@@ -89,16 +82,12 @@ def winner(board):
             pass
         elif column[0] == column[1] and column[1] == column[2]:
             return column[0]
-
     # Check diagonal
     if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
         return board[0][0]
     if board[2][0] == board[1][1] and board[1][1] == board[0][2]:
         return board[0][2]
-
-
-    raise NotImplementedError
-
+    return None
 
 def terminal(board):
     """
@@ -113,11 +102,8 @@ def terminal(board):
         for row in board:
             if EMPTY in row:
                 return False
-
     # No space left on the board and no winner - so game is terminal
     return True
-
-    raise NotImplementedError
 
 
 def utility(board):
@@ -136,84 +122,56 @@ def utility(board):
     else:
         return 0
 
-# # MAX-VALUE function
-# def maxvalue():
-#     pass
-# # TODO CHECK if terminal:
-#     # return utility state
-# # TODO create a variable called V to track the value of the state.
-# # TODO initially, we set it to as low as possible (negative infinity).
-# # For every action in actions(state):
-#     # v = MAX(v, MIN-VALUE(Result(state, action)))
-#
-#
-# def minvalue():
-#     pass
-# # MIN-VALUE function
-# # TODO CHECK if terminal:
-#     # return utility state
-# # TODO create a variable called V to track the value of the state.
-# # TODO initially, we set it to as low as possible (positive infinity).
-# # For every action in actions(state):
-# # v = MIN(v, MAX-VALUE(Result(state, action)))
-#
-#     raise NotImplementedError
-#
-#
-# def minimax(board):
-#     """
-#     Returns the optimal action for the current player on the board.
-#     """
-#     # TODO Recursive algorithm
-#     # Repeat the process, but from opponent's viewpoint.
-#     # if max's turn:
-#         # pick action a that produces highest value of:
-#         # action = highest value of min-value(result(state, action))
-#     # if min's turn:
-#         # pick action a that produces lowest value of
-#         # action = lowest value of max-value(result(state, action))
-#     # Actions is a function that takes a state and returns all the possible
-#     # actions that can be taken by that player.
-#     # TODO loop round all the possible actions and send them to utility.
-#     # From utility, we can work out our best action.
-
 
 def max_value(board):
+    # TODO CHECK if terminal: return winner or result
+    # TODO create a variable called V to track the value of the state.
+    # TODO initially, we set it to as low as possible (positive infinity).
     if terminal(board):
-        return utility(board)
+        return utility(board), None
     else:
         v = float('-inf')
         for action in actions(board):
-            v = max(v, min_value(result(board, action)))
-        return v
+            aux, v = max(v, min_value(result(board, action)))
+            if aux > v:
+                v = aux
+                move = action
+                if v == 1:
+                    return v, move
+    return v, move
 
 
 def min_value(board):
     if terminal(board):
-        return utility(board)
+        return utility(board), None
     else:
         v = float('inf')
         for action in actions(board):
-            v = min(v, max_value(result(board, action)))
-        return v
+            print(action)
+            aux, v = min(v, max_value(result(board, action)))
+            print("aux:" + str(type(aux)))
+            print("v:" + str(type(v)))
+            if aux < v:
+                v = aux
+                move = action
+                if v == -1:
+                    return v, move
+    return v, move
 
 
 def minimax(board):
-    if player(board) == "O":
-        value, move = max_value(board)
-        return move
-
-    if player(board) == "X":
-        value, move = min_value(board)
-        return move
-
-
-EMPTY = None
+    # TODO Recursive algorithm
+    if terminal(board):
+        return None
+    else:
+        if player(board) == "X":
+            value, move = max_value(board)
+            return move
+        else:
+            value, move = min_value(board)
+            return move
 
 # TODO:
-
-
-
 
 # Done:
 # - initial_state
