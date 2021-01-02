@@ -132,13 +132,15 @@ def max_value(board):
     else:
         v = float('-inf')
         for action in actions(board):
-            aux, v = max(v, min_value(result(board, action)))
+            aux, act = min_value(result(board, action))
+            print("aux:" + str(type(aux)))
+            print("v:" + str(type(v)))
             if aux > v:
                 v = aux
                 move = action
                 if v == 1:
                     return v, move
-    return v, move
+        return v, move
 
 
 def min_value(board):
@@ -147,8 +149,8 @@ def min_value(board):
     else:
         v = float('inf')
         for action in actions(board):
-            print(action)
-            aux, v = min(v, max_value(result(board, action)))
+            # print(action)
+            aux, act = max_value(result(board, action))
             print("aux:" + str(type(aux)))
             print("v:" + str(type(v)))
             if aux < v:
@@ -156,7 +158,7 @@ def min_value(board):
                 move = action
                 if v == -1:
                     return v, move
-    return v, move
+        return v, move
 
 
 def minimax(board):
