@@ -175,7 +175,6 @@ def minimax(board):
     raise NotImplementedError
 
 # TODO:
-# - actions
 # - result
 # - utility
 # - minvalue
@@ -187,3 +186,4 @@ def minimax(board):
 # - player
 # - terminal
 # - winner
+# - actions
