@@ -130,7 +130,12 @@ def utility(board):
     # TODO If X will win, then value of that state is 1
     # TODO If O will win, then value of that state is -1
     # TODO If draw, then value of that state is 0
-
+    if winner(board) == "X":
+        return 1
+    elif winner(board) == "O":
+        return -1
+    else:
+        return 0
 
 # MAX-VALUE function
 def maxvalue():
@@ -177,7 +182,7 @@ def minimax(board):
 
 # TODO:
 
-# - utility
+
 # - minvalue
 # - maxvalue
 # - minimax
@@ -189,3 +194,4 @@ def minimax(board):
 # - winner
 # - actions
 # - result
+# - utility
