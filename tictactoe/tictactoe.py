@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 
 import math
+import copy
 
 X = "X"
 O = "O"
@@ -61,8 +62,11 @@ def result(board, action):
     # TODO This is the transitional model. We take a state and an action,
     # TODO when we apply the action and the state, we return the board
     # TODO that is now in place. 
-    board[action[0]][action[1]] = player(board)
-    return board
+    # board[action[0]][action[1]] = player(board)
+    # return board
+    new_board = copy.deepcopy(board)
+    new_board[action[0]][action[1]] = player(board)
+    return new_board
 
 
 def winner(board):
@@ -88,6 +92,7 @@ def winner(board):
     if board[2][0] == board[1][1] and board[1][1] == board[0][2]:
         return board[0][2]
     return None
+
 
 def terminal(board):
     """
@@ -128,51 +133,77 @@ def max_value(board):
     # TODO create a variable called V to track the value of the state.
     # TODO initially, we set it to as low as possible (positive infinity).
     if terminal(board):
-        return utility(board), None
-    else:
-        v = float('-inf')
-        for action in actions(board):
-            aux, act = min_value(result(board, action))
-            print("aux:" + str(type(aux)))
-            print("v:" + str(type(v)))
-            if aux > v:
-                v = aux
-                move = action
-                if v == 1:
-                    return v, move
-        return v, move
+        print("Endgame detected in max_value")
+        return utility(board)
+
+    v = -math.inf
+    for action in actions(board):
+        # print("V: " + str(type(v)) + str(v))
+        # print(min_value(result(board, move)))
+        # print("Result: " + str(type(result(board, move))))
+        v = max(v, min_value(result(board, action)))
+        # if aux > v:
+        #     v = aux
+        #     move = action
+        #     if v == 1:
+        #         return v
+
+    return v
 
 
 def min_value(board):
     if terminal(board):
-        return utility(board), None
-    else:
-        v = float('inf')
-        for action in actions(board):
-            # print(action)
-            aux, act = max_value(result(board, action))
-            print("aux:" + str(type(aux)))
-            print("v:" + str(type(v)))
-            if aux < v:
-                v = aux
-                move = action
-                if v == -1:
-                    return v, move
-        return v, move
+        print("Endgame detected in min_value")
+        return utility(board)
+
+    v = math.inf
+    for action in actions(board):
+        # print("V: " + str(type(v)) + str(v))
+        # print(min_value(result(board, move)))
+        # print("Result: " + str(type(result(board, move))))
+        v = min(v, max_value(result(board, action)))
+        # if aux > v:
+        #     v = aux
+        #     move = action
+        #     if v == -1:
+        #         return v
+
+    return v
 
 
 def minimax(board):
-    # TODO Recursive algorithm
     if terminal(board):
+        # TODO Perhaps  my terminal is not working?
         return None
     else:
-        if player(board) == "X":
-            value, move = max_value(board)
-            return move
-        else:
-            value, move = min_value(board)
-            return move
+        if player(board) == X:
+            best_v = -math.inf
+            for move in actions(board):
+                max_v = min_value(result(board, move))
+                if max_v > best_v:
+                    best_v = max_v
+                    best_move = move
 
+        elif player(board) == O:
+            best_v = math.inf
+            for move in actions(board):
+                min_v = max_value(result(board, move))
+                if min_v < best_v:
+                    best_v = min_v
+                    best_move = move
+        return best_move
+
+    # def minimax(board):
+# #     # TODO Recursive algorithm
+# #     if terminal(board):
+# #         return None
+# #     else:
+# #         if player(board) == "X":
+# #             value, move = max_value(board)
+# #             return move
+# #         if player(board) == "O":
+# #             value, move = min_value(board)
+# #             return move
 # TODO:
 
 # Done:
