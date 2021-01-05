@@ -42,10 +42,6 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-
-    # TODO return all legal moves for this board.
-    # TODO Gives us all the possible actions (much like classical search)
-    # TODO return all the actions for this board.
     possible_actions = set()
     for row in range(0, len(board)):
         for column in range(0, len(board[0])):
@@ -58,12 +54,6 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    # TODO returns the state after action a taken in state s
-    # TODO This is the transitional model. We take a state and an action,
-    # TODO when we apply the action and the state, we return the board
-    # TODO that is now in place. 
-    # board[action[0]][action[1]] = player(board)
-    # return board
     new_board = copy.deepcopy(board)
     new_board[action[0]][action[1]] = player(board)
     return new_board
@@ -98,16 +88,12 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    # Check if state s is terminal
-    # Check if we have a winner
     if winner(board) == "X" or winner(board) == "O":
         return True
-    # No winner - so are there spaces on the board?
     else:
         for row in board:
             if EMPTY in row:
                 return False
-    # No space left on the board and no winner - so game is terminal
     return True
 
 
@@ -115,11 +101,6 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    # TODO return a final value for the game
-    # TODO For each terminal state, what is the value?
-    # TODO If X will win, then value of that state is 1
-    # TODO If O will win, then value of that state is -1
-    # TODO If draw, then value of that state is 0
     if winner(board) == "X":
         return 1
     elif winner(board) == "O":
@@ -129,24 +110,13 @@ def utility(board):
 
 
 def max_value(board):
-    # TODO CHECK if terminal: return winner or result
-    # TODO create a variable called V to track the value of the state.
-    # TODO initially, we set it to as low as possible (positive infinity).
     if terminal(board):
         print("Endgame detected in max_value")
         return utility(board)
 
     v = -math.inf
     for action in actions(board):
-        # print("V: " + str(type(v)) + str(v))
-        # print(min_value(result(board, move)))
-        # print("Result: " + str(type(result(board, move))))
         v = max(v, min_value(result(board, action)))
-        # if aux > v:
-        #     v = aux
-        #     move = action
-        #     if v == 1:
-        #         return v
 
     return v
 
@@ -158,28 +128,20 @@ def min_value(board):
 
     v = math.inf
     for action in actions(board):
-        # print("V: " + str(type(v)) + str(v))
-        # print(min_value(result(board, move)))
-        # print("Result: " + str(type(result(board, move))))
         v = min(v, max_value(result(board, action)))
-        # if aux > v:
-        #     v = aux
-        #     move = action
-        #     if v == -1:
-        #         return v
 
     return v
 
 
 def minimax(board):
     if terminal(board):
-        # TODO Perhaps  my terminal is not working?
         return None
     else:
         if player(board) == X:
             best_v = -math.inf
             for move in actions(board):
                 max_v = min_value(result(board, move))
+                print("V: " + str(best_v))
                 if max_v > best_v:
                     best_v = max_v
                     best_move = move
@@ -188,32 +150,9 @@ def minimax(board):
             best_v = math.inf
             for move in actions(board):
                 min_v = max_value(result(board, move))
+                print("V: " + str(best_v))
                 if min_v < best_v:
                     best_v = min_v
                     best_move = move
         return best_move
 
-    # def minimax(board):
-# #     # TODO Recursive algorithm
-# #     if terminal(board):
-# #         return None
-# #     else:
-# #         if player(board) == "X":
-# #             value, move = max_value(board)
-# #             return move
-# #         if player(board) == "O":
-# #             value, move = min_value(board)
-# #             return move
-# TODO:
-
-# Done:
-# - initial_state
-# - player
-# - terminal
-# - winner
-# - actions
-# - result
-# - utility
-# - minvalue
-# - maxvalue
-# - minimax
